@@ -13,13 +13,18 @@ class PlotFrame(tk.Frame):
         self.text = tk.Text(self)
     
     def plot(self):
-        self.fig = Figure(figsize=(5, 5), dpi=100)
-        points = solveODE(['10*(y - x)', 'x*(28 - z) - y', 'x*y - z*8/3'], [1, 1, 1], 0, 10, 'dopri5', 1e-6).T
-        print(points.shape)
-        self.fig.add_subplot(111, projection='3d').plot3D(points[0, :], points[1, :], points[2, :])
-        canvas = FigureCanvasTkAgg(self.fig, master=self)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=0)
+        points = solveODE(['10*(y - x)', 'x*(28 - z) - y', 'x*y - z*8/3'], [1, 1, 1], 0, 100, 'dopri5', 1e-6).T
+        print(points)
+        self.fig = Figure()
+        self.axes = Axes3D(self.fig)
+        self.axes.plot(points[0, :], points[1, :], points[2, :])
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self)
+        self.axes.mouse_init()
+        self.canvas.draw()
+        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=0)
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self)
+        self.toolbar.update()
+        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
 class InputFrame(tk.Frame):
     def __init__(self, parent, plot_frame):
