@@ -30,5 +30,4 @@ def solveODE(equations, y0, t0, tmax, integrator, tolerance):
         tolerance = 1e-6
     
     solution = solve_ivp(f, [t0, tmax], y0, atol=tolerance, t_eval=np.arange(t0, tmax, 0.01))
-    points = solution.y
-    return points
+    return solution.t, solution.y
