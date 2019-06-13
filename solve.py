@@ -4,7 +4,7 @@ import sympy as sp
 from scipy.integrate import solve_ivp
 import numpy as np
 
-def parseEquations(equations):
+def parse_equations(equations):
     t, x, y, z = sp.symbols('t x y z')
     variables = [x]
     if len(equations) >= 2:
@@ -23,8 +23,8 @@ def parseEquations(equations):
         return result
     return f
 
-def solveODE(equations, y0, t0, tmax, integrator, tolerance):
-    f = parseEquations(equations)
+def solve_ode(equations, y0, t0, tmax, integrator, tolerance):
+    f = parse_equations(equations)
 
     if math.isnan(tolerance):
         tolerance = 1e-6

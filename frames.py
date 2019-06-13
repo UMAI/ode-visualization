@@ -4,15 +4,15 @@ from tkinter import font
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from mpl_toolkits.mplot3d import Axes3D
-from solve import solveODE
+from solve import solve_ode
 
 class PlotFrame(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-        self.initializePlot()
+        self.initialize_plot()
     
-    def initializePlot(self):
+    def initialize_plot(self):
         self.fig = Figure()
         self.axes = Axes3D(self.fig)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self)
@@ -29,7 +29,7 @@ class PlotFrame(tk.Frame):
         self.axes.set_ylabel('y')
         self.axes.set_zlabel('z')
         self.axes.view_init(elev=30, azim=-60)
-        time, points = solveODE(equations, initial_point, t0, tmax, method, tolerance)
+        time, points = solve_ode(equations, initial_point, t0, tmax, method, tolerance)
         xs = ys = zs = 0
         if len(points) >= 1:
             xs = points[0, :]

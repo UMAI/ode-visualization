@@ -1,8 +1,4 @@
 import tkinter as tk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-from matplotlib.backend_bases import key_press_handler
-from matplotlib.figure import Figure
-from solve import solveODE
 from frames import PlotFrame, InputFrame
 
 main_window = tk.Tk()
